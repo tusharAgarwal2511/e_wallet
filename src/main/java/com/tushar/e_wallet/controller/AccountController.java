@@ -2,19 +2,19 @@ package com.tushar.e_wallet.controller;
 
 import com.tushar.e_wallet.payloads.AccountDto;
 import com.tushar.e_wallet.service.account.AccountService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/account")
+@Tag(name = "ACCOUNT")
 public class AccountController
 {
 
@@ -23,6 +23,8 @@ public class AccountController
 
 
 	@GetMapping("/{id}")
+	@CrossOrigin
+	@Operation(description = "GET ACCOUNT BY ID", summary = "GET ENDPOINT TO FETCH ACCOUNT FROM ID")
 	public ResponseEntity<AccountDto> getAccountById(@PathVariable UUID id)
 	{
 		AccountDto accountDto = accountService.getAccountById(id);
@@ -30,6 +32,8 @@ public class AccountController
 	}
 
 	@GetMapping("/")
+	@CrossOrigin
+	@Operation(description = "GET ALL ACCOUNTS", summary = "GET ENDPOINT TO FETCH ALL ACCOUNTS")
 	public ResponseEntity<List<AccountDto>> getAllAccounts()
 	{
 		List<AccountDto> accountDtos = accountService.getAllAccounts();

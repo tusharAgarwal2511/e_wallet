@@ -3,6 +3,8 @@ package com.tushar.e_wallet.controller;
 import com.tushar.e_wallet.payloads.ApiResponse;
 import com.tushar.e_wallet.payloads.UserDto;
 import com.tushar.e_wallet.service.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,15 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/user/")
+@Tag(name = "USER")
 public class UserController
 {
 	@Autowired
 	private UserService userService;
 
 	@PostMapping("/")
+	@CrossOrigin
+	@Operation(description = "POST USER", summary = "POST ENDPOINT TO POST A NEW USER")
 	public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto)
 	{
 
@@ -28,6 +33,8 @@ public class UserController
 
 
 	@GetMapping("/{id}")
+	@CrossOrigin
+	@Operation(description = "GET USER BY ID", summary = "GET ENDPOINT TO FETCH USER FROM ID")
 	public ResponseEntity<UserDto> getUserById(@PathVariable("id") UUID id)
 	{
 		UserDto tempUserDto = userService.getUserById(id);
@@ -36,6 +43,8 @@ public class UserController
 
 
 	@GetMapping("/")
+	@CrossOrigin
+	@Operation(description = "GET ALL TRANSACTIONS", summary = "GET ENDPOINT TO FETCH ALL TRANSACTIONS")
 	public ResponseEntity<List<UserDto>> getAllUsers()
 	{
 		List<UserDto> tempUserDto = userService.getAllUsers();
@@ -44,6 +53,8 @@ public class UserController
 
 
 	@PutMapping("/{id}")
+	@CrossOrigin
+	@Operation(description = "UPDATE USER", summary = "PUT ENDPOINT TO UPDATE USER BY ID")
 	public ResponseEntity<UserDto> updateUserById(@RequestBody UserDto userDto, @PathVariable UUID id)
 	{
 		UserDto tempUserDto = userService.updateUserById(userDto, id);
@@ -52,6 +63,8 @@ public class UserController
 	}
 
 	@DeleteMapping("/{id}")
+	@CrossOrigin
+	@Operation(description = "DELETE USER", summary = "DELETE ENDPOINT TO DELETE USER BY ID")
 	public ResponseEntity<ApiResponse> deleteUserById(@PathVariable UUID id)
 	{
 		userService.deleteUserById(id);
@@ -60,6 +73,8 @@ public class UserController
 	}
 
 	@GetMapping("/phone/{phoneNumber}")
+	@CrossOrigin
+	@Operation(description = "GET USER", summary = "GET ENDPOINT TO FETCH USER BY PHONE NUMBER")
 	public ResponseEntity<UserDto> getUserById(@PathVariable("phoneNumber") String phoneNumber)
 	{
 		UserDto tempUserDto = userService.getUserByPhoneNumber(phoneNumber);
